@@ -1,6 +1,6 @@
 {
   "name": "dereference-symlinks",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Because sometimes you need actual files",
   "main": "index.js",
   "scripts": {
