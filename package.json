@@ -1,7 +1,7 @@
 {
-  "name": "deference-symlinks",
+  "name": "dereference-symlinks",
   "version": "1.0.0",
-  "description": "",
+  "description": "Because sometimes you need actual files",
   "main": "index.js",
   "scripts": {
     "coverage": "nyc --check-coverage --lines 100 --functions 100 --branches 100 npm test",
