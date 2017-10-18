@@ -1,0 +1,5 @@
+#!/bin/env node
+
+const dereferenceDirSync = require('../')
+
+dereferenceDirSync(process.argv[2])
