@@ -12,6 +12,8 @@ const dirPath = path.join(tmpDirPath, 'test')
 const subDirPath = path.join(dirPath, 'sub')
 const otherDirPath = path.join(tmpDirPath, 'other')
 const symlinkedOtherDirPath = path.join(dirPath, 'link')
+const binPath = path.join(tmpDirPath, '.bin')
+const otherBinPath = path.join(otherDirPath, '.bin')
 
 const files = {
   a: path.join(dirPath, 'a.txt'),
@@ -21,7 +23,9 @@ const files = {
   e: path.join(subDirPath, 'e.txt'),
   f: path.join(dirPath, 'f.txt'),
   g: path.join(otherDirPath, 'g.txt'),
-  h: path.join(otherDirPath, 'h.txt')
+  h: path.join(otherDirPath, 'h.txt'),
+  i: path.join(binPath, 'i.txt'),
+  j: path.join(otherBinPath, 'j.txt')
 }
 
 test.before(() => {
@@ -33,6 +37,8 @@ test.before(() => {
   fs.mkdirSync(dirPath)
   fs.mkdirSync(subDirPath)
   fs.mkdirSync(otherDirPath)
+  fs.mkdirSync(binPath)
+  fs.mkdirSync(otherBinPath)
 
   fs.writeFileSync(files.a, 'a')
   fs.writeFileSync(files.b, 'b')
@@ -43,6 +49,8 @@ test.before(() => {
   fs.symlinkSync(files.b, files.e)
   fs.symlinkSync(files.c, files.f)
   fs.symlinkSync(files.a, files.h)
+  fs.symlinkSync(files.a, files.i)
+  fs.symlinkSync(files.g, files.j)
 
   fs.symlinkSync(otherDirPath, symlinkedOtherDirPath)
 })
@@ -72,4 +80,7 @@ test('should defereference symlinks', t => {
   t.falsy(fs.lstatSync(files.g).isSymbolicLink())
   t.falsy(fs.lstatSync(files.h).isSymbolicLink())
   t.falsy(fs.lstatSync(symlinkedOtherDirPath).isSymbolicLink())
+
+  t.truthy(fs.lstatSync(files.i).isSymbolicLink())
+  t.truthy(fs.lstatSync(files.j).isSymbolicLink())
 })

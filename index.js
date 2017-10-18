@@ -19,6 +19,10 @@ const dereferenceSync = (symlinkPath) => {
   fs.removeSync(symlinkPath)
   fs.copySync(realPath, symlinkPath, {
     filter: (filePath) => {
+      if (path.basename(filePath).substring(0, 1) === '.') {
+        return false
+      }
+
       maybeDereference(filePath)
 
       return true
@@ -33,6 +37,10 @@ const dereferenceDirSync = (dir) => {
 
   fs.readdirSync(dir)
     .forEach(file => {
+      if (file.substring(0, 1) === '.') {
+        return
+      }
+
       const filePath = path.resolve(path.join(dir, file))
       maybeDereference(filePath)
     })
